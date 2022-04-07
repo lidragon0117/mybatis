@@ -1,0 +1,69 @@
+配置 mybatis的笔记
+    1.在maven项目下的创建
+        1）在pom.xml文件夹下的<dependencies></dependencies>
+           加入
+                 <！-- 导入mybatis-->
+            <dependency>
+                   <groupId>org.mybatis</groupId>
+                   <artifactId>mybatis</artifactId>
+                   <version>3.5.9</version>
+            </dependency>
+                  <!--    mysql驱动-->
+            <dependency>
+                  <groupId>mysql</groupId>
+                  <artifactId>mysql-connector-java</artifactId>
+                  <version>8.0.11</version>
+            </dependency>
+        2）在dao层（持久层）相同的包下创建--Dao.xml
+                <?xml version="1.0" encoding="UTF-8" ?>
+                <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                <!-- namespace：必须有值，自定义的唯一字符串 推荐使用：dao接口的全限定名称 -->
+                <mapper namespace="com.LiLong.dao.AdminDao">
+                    <!-- <select>: 查询数据， 标签中必须是select语句
+                     id: sql语句的自定义名称，推荐使用dao接口中方法名称， 使用名称表示要执行的sql语句
+                     resultType: 查询语句的返回结果数据类型，使用全限定类名 -->
+                    <select id="findall" resultType="com.LiLong.domain.Admin">
+                 <!--要执行的sql语句-->
+                    select  *from tb_admin
+                    </select>
+                </mapper>
+        3)在resources包下创建相应的mybatis的.xml文件
+                <?xml version="1.0" encoding="UTF-8" ?>
+                <!DOCTYPE configuration
+                        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+                <!--
+                    配置的主要文件：
+                    mybatis-3-config.dtd是约束文件名称
+                    environments是环境配置
+                    id 一个唯一值，自定义，表示环境名称
+                    default 和下面的environment里的id一样用于告诉是访问哪个信息
+
+                -->
+                <configuration>
+                    <environments default="mydev">
+                        <environment id="mydev">
+                            <transactionManager type="JDBC"/>
+                <!--
+                    type=“jdbc”表示jdbc中的Connection 对象的commit ，rollback
+                    dataSource表示数据源，type表示类型
+                -->
+                            <dataSource type="POOLED">
+                                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                                <property name="url" value="jdbc:mysql://127.0.0.1/dorm?serverTimezone = GMT"/>
+                                <property name="username" value="root"/>
+                                <property name="password" value="123456"/>
+                            </dataSource>
+                        </environment>
+                    </environments>
+                <!--    sql映射文件
+                        一个mapper表示一个sql映射
+                        从类路径开始的路径信息
+                        （target/classes）
+                -->
+                    <mappers>
+                        <mapper resource="com/LiLong/dao/AdminDao.xml"/>
+                    </mappers>
+                </configuration>
+        4）执行并查询sql语句的内容

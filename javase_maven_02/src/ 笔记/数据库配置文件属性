@@ -1,0 +1,26 @@
+数据库的属性的配置文件：
+    把数据库连接信息放到一个单独的文件中，和
+    mybatis分开，目的是便于修改，保存，处理多个数据库
+    的信息。
+    1）在resources目录中定义一个配置文件的属性
+        xxx.properties，比如：Jdbc.properties
+        在属性配置文件中，定义数据，格式是 key =value
+        key:一般使用.做多级目录 比如：jdbc.mysql.Driver
+        或者：jdbc.Driver myDriver
+        jdbc.Driver=com.mysql.jdbc.Driver
+        jdbc.url=mysql://.....
+        jdbc.UserName=root
+        jdbc.password=123456
+        这里把jdbc看成一个
+        比如：
+        jdbc.driver=com.mysql.cj.jdbc.Driver
+        jdbc.url=mysql.....
+        jdbc.userName=root
+        jdbc.password=123456
+    2)在mybatis的主配置文件中使用<property>指定文件的位置
+    在需要的位置
+    在datasources
+        <property name="driver" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="userName" value="${jdbc.userName}"/>
+        <property name="password" value="${jdbc.password}"/>

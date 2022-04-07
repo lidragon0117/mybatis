@@ -1,0 +1,19 @@
+resultType的使用
+    1）返回的是结果的类型，指sql语句执行完了以后，数据转为java对象
+    处理的方式：
+        *mybatis执行sql语句，调用mybatis类的无参构造方法，创建对象
+        将mybatis指定的属性值传给同名的属性
+          <select id="findall" resultType="com.LiLong.domain.Admin">
+         <!--要执行的sql语句-->
+            select  *from tb_admin
+          </select>
+          这里的resultType就是返回值类型需要创建的对象
+          JDBC中的代码就是：
+          ResultSet rs=执行的sql语句;
+          创建出的就是Admin对象
+          再输出放入到Admin对象中
+          while(rs.next()){
+          rs.
+          rs.
+          }
+

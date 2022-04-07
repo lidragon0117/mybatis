@@ -1,0 +1,14 @@
+做数据分页：
+    在pom.xml中加入pageHelper依赖
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.2.0</version>
+    2）在mybatis.xml中加入配置文件
+    在<environments default="mydev">
+    上面加入
+    <plugins >
+             <plugin interceptor="com.github.pagehelper"></plugin>
+         </plugins>
+    3）PageHelper.start(pageNum,pageSize)
+    pageNum ：展示的是有多少页
+    pageSize：一页有多少数据

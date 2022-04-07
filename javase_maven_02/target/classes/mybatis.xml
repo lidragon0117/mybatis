@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--
+    配置的主要文件：
+    mybatis-3-config.dtd是约束文件名称
+    environments是环境配置
+    id 一个唯一值，自定义，表示环境名称
+    default 和下面的environment里的id一样用于告诉是访问哪个信息
+
+-->
+
+<configuration>
+<!--    设置mybatis 全局表NBLAIN-->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <environments default="mydev">
+        <environment id="mydev">
+            <transactionManager type="JDBC"/>
+<!--
+    type=“jdbc”表示jdbc中的Connection 对象的commit ，rollback
+    dataSource表示数据源，type表示类型
+-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://127.0.0.1/dorm?useSSL=false &amp;serverTimezone = GMT"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+<!--    sql映射文件
+        一个mapper表示一个sql映射
+        从类路径开始的路径信息
+        （target/classes）
+-->
+    <mappers>
+        <mapper resource="com/LiLong/dao/AdminDao.xml"/>
+    </mappers>
+</configuration>

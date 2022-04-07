@@ -1,0 +1,26 @@
+主要类的介绍：
+        1)
+            Resources:mybatis    的一个类，负责读取配置文件
+               代码：InputStream in =Resources.getRespurceAsStream("xx.xml");
+        2)
+            SqlSessionFactoryBuilder:创建sqlSessionFactory对象
+                SqlSessionFactoryBulider builder=new SqlSessionBuilder();
+                代码：SqlSessionFactory factory=builder.bulid(in);
+        3)重要
+        SqlSessionFactory:
+            重量级对象，程序创建一个对象耗时比较长，使用的资源多
+            在项目中有一个就够用了。
+            SqlSessionFactory:接口，接口的实现类：DefaultSqlSessionFactory
+            作用：获取SqlSession对象
+               SqLSession sqlSession=factory.openSession();
+        openSession()方法：
+            1.openSession():s是无参的，获取是非自动提交事务的SqlSession对象
+            2.openSession(boolean):openSession(true)获取自动提交事务的SqlSession
+                                   openSeesion(false)非自动提交事务的SqlSession对象
+        4）
+        SqlSession对象
+            是一个接口，定义了操作数据库的方法，例如：selectOne(),insert()
+            默认实现类DefaultSQLSession
+            使用技巧：
+                1.不是县城安全的，需要在在方法内部使用，执行sql语句前,使用openSession()获取SQLSession，执行以后要关闭
+                sqlSession.close();

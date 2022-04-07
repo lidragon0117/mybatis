@@ -1,0 +1,20 @@
+like模糊查询
+    模糊查询有两种方式：
+        1.在Java代码中指定like的内容
+        在AdminDao.xml文件中设置
+            <select id="likeselect" resultType="com.LiLong.domain.Admin">
+                select * from tb_admin where  userName like #{userName}
+           </select>
+        然后再抽象类的方法中设置含有userName为参数
+        在测试时，  AdminDao adminDao=sqlSession.getMapper(AdminDao.class);
+                     String userName="李%";
+                     List<Admin>  admins=adminDao.likeselect(userName);
+                     其中这里的String userName=“%”;
+                     就是参数
+        2.在AdminDao.xml
+        中
+                    <select id="likeselect" resultType="com.LiLong.domain.Admin">
+                         select * from tb_admin where  userName like “%”#{userName}
+                         表示查的是什么的加上你传入的数据
+                    </select>
+        3.推荐使用第一种方式

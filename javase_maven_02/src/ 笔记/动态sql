@@ -1,0 +1,29 @@
+动态sql
+    其意义就是sql语句的内容是变化的
+    主要是where部分的内容是变化的
+    这里主要讲解的是：<if><where><foreach>
+    其中mybatis中提供<if><where><foreach>标签
+    1)<if>条件
+      语法<if test="判断java对象的属性值">
+                部分sql语句
+         </if>
+          <select id="ifselect" resultType="com.LiLong.domain.Admin">
+                 select *from tb_admin where
+                 <if test="userName!=null and userName!=''">
+                     userName=#{userName}
+                 </if>
+
+             </select>
+    不足：<if>之中有不足之处，可以和where标签一起是引用
+    2）<where>标签
+    因为sql语句中if标签是从上往下进行的，当有多个i分时很容易出错
+    所以和if标签配合使用的话，会减少错误的产生
+    <select id="whereselect" resultType="com.LiLong.domain.Admin">
+            select *from tb_admin
+            <where>
+                <if test="userName!=null and userName!=''">
+                    userName=#{userName}
+                </if>
+            </where>
+        </select>
+    其中在执行的时候，会自动给sql语句补充上where关键字

@@ -1,0 +1,47 @@
+parametertype:用于指定dao中接口的参数的数据类型
+parameterType的值是java数据类型的全限定名称，或者是数据类型的简称
+    *比如：int 就是简称，而java.lang.Integer就是全称
+    它的使用就是：
+        1）在dao包中的接口中加入方法的参数，
+        2）在对应的dao包下的xxx.xml文件下找到要执行的sql语句，给其添加parameterType="什么"
+        3）其余基本不在变化，但是parameterType也可以不用添加依旧可以执行
+            *这是因为mybatis中的反射机制能够发现接口中方法的参数类型，所以可以没有parameterType
+            *一般情况下我们可以不用写，也一般不写
+参数的传递：
+    0）#{}之后的操作就是使用的JDBC中的preparedStatement
+        执行如下代码
+            1）mybatis创建Connection PreparedStatement对象
+                String sql="select *from where id=?";
+                PreparedStatement ps=conn.preparedStatement(sql);
+                ps.setInt(1,数据);
+            2）执行sql封装为resultType="com.LiLong.domain.Admin"
+                ResultSet rs=ps.excuteQuery();
+                whlile(rs.next()){
+                输出数据库中的数据
+
+                }
+    1）简单类型的参数：
+        *mybatis将java中的基本数据类型以及string都叫做简单类型的参数
+        *你比如说 int double long byte String 等，#就是一个占位符
+        在mapper文件获取简单的参数类型的时候使用的是#{任意字符}
+    2）多个参数传递
+        *mybatis 对dao 包中的接口类方法中的参数是多个时采用的是@param("自定义的名字")
+        *在接口类中的方法的参数传递过程中：
+            例如：public void insertId(@param("自定义的名字") String name @param("自定义名字") int age)；
+            然后再mybatisDao.xml中进行传参，用#{在dao包下接口类中的方法里的@param中的自定义的名字}
+            *其中图：每一个@param()后面的基本值都会传给@param()里的自定义的名字
+    3）使用对象传参
+        *使用对象传参，java对象的属性值作为函数的实际参数
+        javaType:指的是java中的属性值的数据类型
+        jdbcType:指的是数据库中的数据类型
+        例如：#{paramName,javaType="java.lang.String ",jdbcType="VARCHAR"}
+        上述就是定义的，因为太过于繁琐，一般不用
+        使用的简化方式：
+            #{名字}例如：#{包里参数对象的属性的名字}
+    4）多个参数使用位置
+        #{arg0}表示参数从左到右的第一个位置
+    5）使用Map
+        *创建 Map <String Object> map=new HashMap<>();
+        *使用map.put("名字"，“数据”)；
+        *#{名字}
+        Map的可读性差，一般不建议用

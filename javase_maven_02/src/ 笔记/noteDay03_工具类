@@ -1,0 +1,22 @@
+一、使用mybatis的基本大致步骤
+        1.找到项目的xml文件
+        String conigf="xxxxxx.xml";
+        2.读取相应文件
+         InputStream in= Resources.getResourceAsStream(conigf);
+        3.依次使用：SqlSessionFactoryBuilder
+                SqlSeesionFactory
+                SqlSession
+        4.找到持久层下的xxDao.xml,采用字符串拼接的哦 形式namespace+“.”+"方法的id";
+          其中：方法的id下就是所要执行的语句：
+                其标签有增，删，改，查，四种
+
+
+        用工具类：
+            1.创建utils包
+            2.创建类
+            3.利用静态代码块封装到SqlSessionFactory
+                (从第一步到项目的xml文件封装到第三步)
+            4.创建方法，用于返回SqlSession
+
+二、使用持久层下的接口方法：
+        1.

@@ -1,0 +1,12 @@
+如果项目中文件中有多个Mapper文件
+    可以用指定多个
+    1）直接输入多个
+    每一个对应的相应路径
+    <mapper resource="com/LiLong/dao/AdminDao.xml"/>
+    2）使用包名
+    name： xml文件的（mapper文件）所有包，这个
+    包一次找到所有文件
+    使用package的要求
+    Mapper文件的名称和接口名称一致，区分大小写
+    Maper 文件和dao接口需要在同一目录
+      <package name="com/LiLong/dao"/>

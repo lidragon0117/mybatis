@@ -1,0 +1,16 @@
+ResultType结果结果类型就是简化后的别名
+    或者是全限定名称
+    定义自定义类型的别名
+    在mybatis主配置文件中定义，使用<typeAlias>
+    位置：resources中的xml文件
+    <typeAliases>
+        可以指定一个类型的别名
+        type：自定义类型全限定名称
+        alias:别名（短小，容易记忆的）
+        <typeAlias type="自定义类的全限定名称" alias="别名"/>
+    </typeAliases>
+    <package> name是包名，这个包中的所有类，
+        类的别名就是类名
+        其中在实际项目开发中用package中用的多
+
+

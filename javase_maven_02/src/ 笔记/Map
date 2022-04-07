@@ -1,0 +1,24 @@
+Map
+    用于返回的值为map类型的值
+        返回值是map的时候，最多就能返回一行
+        多余一行就是错误的
+        map用的比较少
+resultMap映射：
+    结果映射，指定列名和java对象的属性对应关系。
+    1）自定义列值赋给哪个属性
+    2）当你的列名和属性名不一样时一定使用resultMap
+    默认一样的时候才不用resultMap
+    使用方式：
+        定义一个resultMap
+            id:自定义名称，表示你定义的是resultMap
+            type：java类型的全限定名称
+            <resultMap id="自定义" type="com.LiLong.domain.Admin">
+            注解列，使用id标签
+            column：列名
+            property：java类型的属性名
+            <id column="id“ property=”id“>
+            <result column="username" property="username">
+            <result column="password" property="password">
+            直到全部输入完毕
+            </resultMap>
+        有个select标签引用哪个定义

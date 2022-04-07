@@ -1,0 +1,9 @@
+<transationManager>标签是事务的类型
+type表示事务的类型，提交事务回滚事务的方式
+    1）JDBC 表示JDBC中的commit 或者rollback
+    2)MANAGED 把mybatis 的事务处理委托给其他的容器或者框架
+<DataSource>表示数据源 java的体系中实现了javax.sql.DAtaSources接口的数据源素
+    type 指定数据源的类型poll 表示使用连接池
+    会创建pooledDatasource
+    UPOOlED不使用连接池
+    会创建UnpoolDataSource

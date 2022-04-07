@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：必须有值，自定义的唯一字符串 推荐使用：dao接口的全限定名称 -->
+<mapper namespace="com.LiLong.dao.AdminDao">
+
+<!--    <select id="selectAll" resultType="com.LiLong.domain.Admin">-->
+<!--        select *from tb_admin-->
+<!--    </select>-->
+<!--&lt;!&ndash;  简单的参数&ndash;&gt;-->
+<!--    <select id="selectById"  resultType="com.LiLong.domain.Admin">-->
+<!--        select  *from tb_admin where adminId=#{adminId}-->
+<!--    </select>-->
+<!--&lt;!&ndash;使用的多个参数&ndash;&gt;-->
+    <select id="selectByMoreNum" resultType="Admin">
+        select *from tb_admin where userName=#{myname}
+    </select>
+    <select id="count" resultType="int"  >
+        select count(*) tb_admin
+    </select>
+    <select id="likeselect" resultType="com.LiLong.domain.Admin">
+
+    select * from tb_admin where  userName like #{userName}
+    </select>
+    <select id="likeselectTwo" resultType="com.LiLong.domain.Admin">
+
+        select * from tb_admin where  userName like #{userName} "%"
+    </select>
+<!--if标签的使用-->
+<!--
+    <if test="使用参数java对象的属性值作为判断条件，语法 属性=XXX值">
+
+-->
+    <select id="ifselect" resultType="com.LiLong.domain.Admin">
+        select *from tb_admin where
+        <if test="userName!=null and userName!=''">
+            userName=#{userName}
+        </if>
+
+    </select>
+<!--    where标签的使用-->
+    <select id="whereselect" resultType="com.LiLong.domain.Admin">
+        select *from tb_admin
+        <where>
+            <if test="userName!=null and userName!=''">
+                userName=#{userName}
+            </if>
+        </where>
+    </select>
+<!--    使用sql动态代码块-->
+    <sql id="selectBydontaiSql">
+        select *from tb_admin
+    </sql>
+    <select id="selectBydongtaiSql" resultType="com.LiLong.domain.Admin">
+        <include refid="selectBydontaiSql"></include>
+    </select>
+    <!--    用pageHelper做分页-->
+    <select id="selectByHelper" resultType="com.LiLong.domain.Admin">
+        SELECT * FROM tb_admin ORDER BY adminId
+    </select>
+
+
+</mapper>

@@ -1,0 +1,6 @@
+动态Sql代码片段
+    步骤：
+    1）使用<Sql id=“自定义唯一”>
+        sql语句表名，字段等
+        </sql>
+    2）在使用<include refid=“id值">

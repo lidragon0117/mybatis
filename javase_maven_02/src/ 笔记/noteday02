@@ -1,0 +1,49 @@
+通过mybatis进行数据的增加
+    1）在持久层（dao）包中找到对应的
+        *找到相应的.xml并插入
+        如下代码：
+        <insert id="insertInfro">
+                insert into tb_admin values(null,#{userName},#{password},#{name},#{sex},#{tel})
+        </insert>
+        其中<insert></insert>
+    2）在AdminDao添加相应的方法
+        *比如public int insertInfro();
+    3）在test/java/com/LiLong/AppTest下添加
+        *
+            public void shouldAnswerWithTrue() throws IOException {
+
+                    //访问mybatis读取数据
+                    //1.定义mybatis主配置的文件
+                    String conigf="mybatis.xml";
+                    //2.读取这个文件
+                    InputStream in= Resources.getResourceAsStream(conigf);
+                    //创建sqlSessionFactoryBulider对象
+                    SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
+                    //创建SqlSessionFactory对象
+                    SqlSessionFactory factory=builder.build(in);
+                    //获取SQLSession对象，从SqlSessionFactory中获取SQLSession
+                    SqlSession sqlSession=factory.openSession();
+                    //指定重要执行语句，sql映射文件中的nameSpace+“.”+标签的id
+                    String sqlI="com.LiLong.dao.AdminDao"+"."+"insertInfro";
+                    //执行sql语句
+                    Admin admin=new Admin();
+
+                    admin.setUserName("李四");
+                    admin.setPassword("123");
+                    admin.setName("李四");
+                    admin.setSex("男");
+                    admin.setTel("1234");
+                    int adminint =sqlSession.insert(sqlI,admin);
+                    //输出
+                    sqlSession.commit();
+                    System.out.println("执行的结果为："+adminint);
+            }
+    4）在mybatis下面配置日志文件
+        在<configuration>
+            <!--设置mybatis输出文件-->
+            <setting>
+            <setting name="logImpl" value="STDOUT_LOGGING"/>
+            </setting>
+        </configuration>
+
+
